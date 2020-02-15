@@ -25,7 +25,7 @@ SECRET_KEY = 'a-ccwgzgty+cep*^-#ly=q76l0_i6gy&p%a5@%y6u90quc3s7b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://buddydjango-env.6rnmx3dg4q.us-west-2.elasticbeanstalk.com/', 'localhost']
+ALLOWED_HOSTS = ['http://buddydjango-env.6rnmx3dg4q.us-west-2.elasticbeanstalk.com/', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -75,9 +75,20 @@ WSGI_APPLICATION = 'Django.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': 'buddy',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'OutToLunch',
+        'PASSWORD': 'ourprojectisawesome',
+        'HOST': 'outtolunch.cotysnks4blq.us-west-2.rds.amazonaws.com',
+        'PORT': '3306',
+        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'", },
     }
 }
 
