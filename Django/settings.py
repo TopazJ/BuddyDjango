@@ -25,7 +25,7 @@ SECRET_KEY = 'a-ccwgzgty+cep*^-#ly=q76l0_i6gy&p%a5@%y6u90quc3s7b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ebuddy.us-west-2.elasticbeanstalk.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['buddy.us-west-2.elasticbeanstalk.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
