@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sign Up for Buddy!</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+<style>
+.footer-copyright {
+	background-color:  #8c8b8c;
+}
+
+.container-fluid {
+	background-color:  #ff7961;
+}
+body {
+    background: -webkit-linear-gradient( #ffe6f7, #b3e6ff);
+    background: -o-linear-gradient( #ffe6f7, #b3e6ff);
+    background: -moz-linear-gradient( #ffe6f7, #b3e6ff);
+    background: linear-gradient( #ffe6f7, #b3e6ff);
+    background-color:  #ffe6f7;
+}
+.container {
+  width: 500px;
+  clear: both;
+}
+.container input {
+  width: 100%;
+  clear: both;
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+    <br/>
+    <h2>
+        <text>Buddy Volunteer Sign Up</text>
+    </h2>
+    <br/>
+    <form action="/volunteer/create/" method="post">
+    {% csrf_token %}
+        <label for="Email">Email: </label>
+        <input type="email" class="form-control" id="Email" required name="Email">
+        {% if email %}
+            <p style="color:#FF0000"> Your email has already been registered!</p>
+        {% endif %}
+        <br/>
+        <label for="Password">Password: </label>
+        <input type="password" class="form-control" required name="password" id="Password">
+        <br/>
+        <label for="FName">First Name:</label>
+        <input type="text" class="form-control" required name="FName" id="FName">
+        <br/>
+        <label for="LName">Last Name:</label>
+        <input type="text" class="form-control" required name="LName" id="LName">
+        <br/>
+        <label for="provinces">Province:</label>
+        <select class="form-control" required name="Province" id="provinces">
+          <option disabled selected value> -- </option>
+          <option value="AB">AB</option>
+          <option value="BC">BC</option>
+          <option value="SK">SK</option>
+          <option value="MB">MB</option>
+          <option value="ON">ON</option>
+          <option value="QC">QC</option>
+          <option value="NL">NL</option>
+          <option value="NS">NS</option>
+          <option value="PE">PE</option>
+          <option value="NT">NT</option>
+          <option value="PE">NU</option>
+          <option value="YT">YT</option>
+          <option value="NB">NB</option>
+        </select>
+        <br/>
+
+   <label for="City">City: </label> <input type="text" class="form-control" id="City" required name="City"><br>
+   <label for="Phone">Phone Number (#########): </label>
+        <input type="text" id="Phone" class="form-control" pattern = "[0-9]{10}" required minlength = 10 maxlength = 10 name="PhoneNum">
+        {% if phone %}
+            <p style="color:#FF0000"> Your phone has already been registered!</p>
+        {% endif %}
+        <br>
+   <label for="Interests">Interests: </label><div class="container1">
+<div><input type="text" class="form-control" id = "Interests" required name="mytext[0]"> <br> </div>
+</div>
+<button class="add_form_field btn btn-secondary" style = 'width: 150px;'> Add New Interest <span style="font-size:16px; font-weight:bold;"></span></button>
+   <br><br><button class = 'btn btn-primary' type = 'submit'>Create New Account</button>
+</form>
+</div>
+
+ <footer class="page-footer font-small blue pt-4">
+      <!-- Footer Links -->
+      <div class="container-fluid text-center text-md-left">
+        <!-- Grid row -->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-6 mt-md-0 mt-3">
+            <!-- Content -->
+            <h5 class="text-uppercase"><br>418 I'm a Teapot</h5>
+            <p>Evan Krul, Layla Arab, Nicholas Cervania, Richard Lee, and Shamez Meghji</p>
+          </div>
+          <!-- Grid column -->
+          <hr class="clearfix w-100 d-md-none pb-3">
+          <!-- Grid column -->
+        </div><!-- Grid row -->
+      </div>
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        418 I'm a Teapot
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  crossorigin="anonymous"></script>
+<script  type="application/javascript">
+$(document).ready(function() {
+    let max_fields      = 20;
+    let wrapper         = $(".container1");
+    let add_button      = $(".add_form_field");
+
+    let x = 0;
+    $(add_button).click(function(e){
+        e.preventDefault();
+        if(x < max_fields){
+            x++;
+            $(wrapper).append('<div style="padding-bottom: 20px;"><input type="text" class="form-control" required name="mytext['+x+']"/><a href="#" class="delete">Remove</a></div>'); //add input box
+        } else {
+			alert('No thats it you can only have 10')
+		}
+		});
+
+    $(wrapper).on("click",".delete", function(e){
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    });
+});
+</script>
+
+
+</body>
+
+</html>
