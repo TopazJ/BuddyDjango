@@ -59,8 +59,8 @@ def index(request):
     phone_number = phone_number.replace("-", "")
     print("!!! RICHARD phone pt 2. number is " + phone_number)
 
-    # phone_url = "https://buddy.us-west-2.elasticbeanstalk.com/call/now/"
-    phone_url = "https://enbyk4tq6ecwc.x.pipedream.net"
+    phone_url = "https://buddy.us-west-2.elasticbeanstalk.com/call/now/"
+    # phone_url = "https://enbyk4tq6ecwc.x.pipedream.net"
     requests.post(phone_url, json={"phone": phone_number})
 
     response = {
