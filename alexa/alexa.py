@@ -32,8 +32,9 @@ def index(request):
             },
             "shouldEndSession": True,
         },
-        # 'debug_data': debug_data  # FIXME delete
     }
+
+    print("!!! RICHARD debug 8:39 am, response: ", response)
 
     return JsonResponse(response)
 

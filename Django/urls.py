@@ -18,9 +18,8 @@ from django.urls import path, include
 # from . import alexa
 
 urlpatterns = [
-    # path('', include('matching.urls')),
+    path('', include('matching.urls')),
     path('admin/', admin.site.urls),
-    # path('api/', alexa.index, name='index'),
     path('api/', include('alexa.urls')),
     path('volunteer/', include('matching.urls'))
 ]
