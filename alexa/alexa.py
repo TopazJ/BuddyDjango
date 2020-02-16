@@ -59,13 +59,16 @@ def index(request):
     phone_number = phone_number.replace("-", "")
     print("!!! RICHARD phone pt 2. number is " + phone_number)
 
+    phone_url = "https://buddy.us-west-2.elasticbeanstalk.com/call/now/"
+    requests.post(phone_url, json={"phone": phone_number})
+
     response = {
         "version": "1.0",
         "response": {
             "outputSpeech": {
                 "type": "PlainText",
-                # "text": "Hi. Welcome to buddy. One moment while I search for someone to chat with.",
-                "text": "Welcome to buddy. Phone number is " + phone_number,
+                "text": "Hi. Welcome to buddy. One moment while I search for someone to chat with.",
+                # "text": "Welcome to buddy. Your phone number is " + phone_number,
             },
         },
     }
