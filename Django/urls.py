@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('matching.urls')),
     path('admin/', admin.site.urls),
     path('api/', include('alexa.urls')),
-    path('volunteer/', include('matching.urls'))
+    path('volunteer/', include('matching.urls')),
+    path('call/', include('matching.urls')),
 ]

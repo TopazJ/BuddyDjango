@@ -44,10 +44,8 @@ body {
     <form action="/volunteer/create/" method="post">
     {% csrf_token %}
         <label for="Email">Email: </label>
-        <input type="email" class="form-control" id="Email" required name="Email">
-        {% if email %}
+        <input type="email" class="form-control" id="Email" required name="Email" value="{{ email }}">
             <p style="color:#FF0000"> Your email has already been registered!</p>
-        {% endif %}
         <br/>
         <label for="Password">Password: </label>
         <input type="password" class="form-control" required name="password" id="Password">

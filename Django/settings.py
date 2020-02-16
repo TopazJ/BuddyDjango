@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-# SECURE_SSL_REDIRECT = True  # TODO Figure out if safe to turn back on. I have no idea what's happening
+SECURE_SSL_REDIRECT = True  # TODO Figure out if safe to turn back on. I have no idea what's happening
 
 WSGI_APPLICATION = 'Django.wsgi.application'
 
