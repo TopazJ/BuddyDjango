@@ -12,15 +12,16 @@ import json
 @csrf_exempt
 def user_request(request):
     if request.method == 'POST':
+        data = json.loads(request.body)
         first_name = 'Richard'
         last_name = 'Lee'
-        phone = '5877076882'
-        if not Client.objects.all().filter(phone=str(1)+phone).exists():
+        phone = data['phone']
+        if not Client.objects.all().filter(phone='+1'+phone).exists():
             client = Client.objects.create(first_name=first_name, last_name=last_name, phone='+1'+phone)
             return staff_call(client)
         else:
-            client = Client.objects.get(phone=phone)
-            call_match(client)
+            client = Client.objects.get(phone='+1'+phone)
+            return call_match(client)
 
 
 def call_match(client):
@@ -29,21 +30,21 @@ def call_match(client):
             return submit_call(call.volunteer, client)
     potential_matches = {}
     for interest in ClientInterest.objects.filter(owner=client):
-        matching_volunteer_interests = VolunteerInterest.objects.filter(interest=interest)
+        matching_volunteer_interests = VolunteerInterest.objects.filter(interest=interest.interest)
         for volunteer_interest in matching_volunteer_interests:
             if volunteer_interest.owner.available:
                 if volunteer_interest.owner.id in potential_matches.keys():
-                    potential_matches[volunteer_interest.owner.id] = interest.rating
+                    potential_matches[volunteer_interest.owner.id] = potential_matches[volunteer_interest.owner.id] + interest.rating
                 else:
-                    potential_matches[volunteer_interest.owner.id] = potential_matches[volunteer_interest.owner.id] + \
-                                                                     interest.rating
+                    potential_matches[volunteer_interest.owner.id] = interest.rating
     if potential_matches:
         v = list(potential_matches.values())
         k = list(potential_matches.keys())
         best_volunteer_id = k[v.index(max(v))]
         best_volunteer = Volunteer.objects.get(id=best_volunteer_id)
-        call = Call.objects.create(volunteer=best_volunteer, client=client)
-        call.save()
+        if not Call.objects.all().filter(volunteer=best_volunteer, client=client).exists():
+            call = Call.objects.create(volunteer=best_volunteer, client=client)
+            call.save()
         return submit_call(best_volunteer, client)
     else:
         return staff_call(client)
@@ -51,8 +52,9 @@ def call_match(client):
 
 def staff_call(client):
     staff = Volunteer.objects.get(staff=True, available=True)
-    call = Call.objects.create(volunteer=staff, client=client)
-    call.save()
+    if not Call.objects.all().filter(volunteer=staff, client=client).exists():
+        call = Call.objects.create(volunteer=staff, client=client)
+        call.save()
     return submit_call(staff, client)
 
 
@@ -67,7 +69,8 @@ def call_result(request):
         call.volunteer.available = True
         call.save()
         # client_difference = data['client-end'] - data['client-begin']
-        client_rating = data['client-rating']
+        # client_rating = data['client-rating']
+        client_rating = int(data['client-rating'])
         # volunteer_rating = data['volunteer-rating']
         # transcript = data['transcript']
         # results = parse_transcript(transcript)
@@ -126,7 +129,9 @@ def submit_call(volunteer, client):
             "number": client.phone
         }
     }
-    response = requests.post('https://krul.ca/api/sms/callrequest',  json=post_data, verify=False)
+    requests.post('https://krul.ca/api/sms/callrequest',  json=post_data, verify=False)
+    response = HttpResponse()
+    response.status_code = 200
     return response
 
 
