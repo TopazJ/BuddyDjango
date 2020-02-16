@@ -17,7 +17,9 @@ def user_request(request):
         last_name = 'Lee'
         phone = data['phone']
         if not Client.objects.all().filter(phone='+1'+phone).exists():
+            print("SHAMEZ DEBUG HERE!!!")
             client = Client.objects.create(first_name=first_name, last_name=last_name, phone='+1'+phone)
+            print("SHAMEZ DEBUG HERE AGAIN!!!")
             return staff_call(client)
         else:
             client = Client.objects.get(phone='+1'+phone)
