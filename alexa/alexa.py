@@ -51,7 +51,7 @@ def index(request):
         "Host": "api.amazonalexa.com"
     }
 
-    print("!!! RICHARD PHONE debugger. header is " + headers)
+    print("!!! RICHARD PHONE debugger. header is " + str(headers))
     resp = requests.get("https://api.amazonalexa.com/v2/accounts/~current/settings/Profile.mobileNumber", headers=headers)
     print("!!! RICHARD PHONE. Data is " + resp.text)
     phone_resp_body = resp.json()
