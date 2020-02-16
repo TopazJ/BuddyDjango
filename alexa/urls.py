@@ -15,10 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# from . import alexa
+from . import alexa
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # path('api/', alexa.index, name='index'),
-    path('api/', include('alexa.urls')),
+    path('', alexa.index),
 ]
