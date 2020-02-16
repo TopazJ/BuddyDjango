@@ -52,9 +52,11 @@ def index(request):
     }
 
     resp = requests.get(full_api_endpoint, headers=headers)
+    print("!!! RICHARD PHONE. Data is " + resp.text)
     phone_resp_body = resp.json()
     phone_number = phone_resp_body['phoneNumber']
     phone_number = phone_number.replace("-", "")
+    print("!!! RICHARD phone pt 2. number is " + phone_number)
 
     response = {
         "version": "1.0",
@@ -64,7 +66,6 @@ def index(request):
                 # "text": "Hi. Welcome to buddy. One moment while I search for someone to chat with.",
                 "text": "Welcome to buddy. Phone number is " + phone_number,
             },
-            # "shouldEndSession": True,
         },
     }
 
