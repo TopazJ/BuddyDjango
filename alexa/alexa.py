@@ -51,17 +51,7 @@ def index(request):
         "Host": api_endpoint
     }
 
-    body = {
-        "header": {
-            "requestId": request_id
-        },
-        "directive": {
-            "type": "VoicePlayer.Speak",
-            "speech": ssml
-        }
-    }
-
-    resp = requests.get(full_api_endpoint, headers=headers, data=body)
+    resp = requests.get(full_api_endpoint, headers=headers)
     phone_resp_body = resp.json()
     phone_number = phone_resp_body['phoneNumber']
     phone_number = phone_number.replace("-", "")
