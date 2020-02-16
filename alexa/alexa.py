@@ -23,6 +23,20 @@ def index(request):
     # print('-----------------------------------------')
     # welcome_progressive_response(request)
 
+    req_body = json.loads(request.body)
+    req_type = req_body['request']['type']
+    if req_type == "SessionEndedRequest":
+        print("I received a SessionEndedRequest. Bye bye!")
+        return JsonResponse({
+            "version": "1.0",
+            "response": {
+                "outputSpeech": {
+                    "type": "PlainText",
+                    "text": "Goodbye.",
+                }
+            }
+        })
+
     response = {
         "version": "1.0",
         "response": {
