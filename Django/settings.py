@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'alexa',
+    'matching',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = False  TODO CHANGE THIS BACK
 
 WSGI_APPLICATION = 'Django.wsgi.application'
 
