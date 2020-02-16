@@ -48,10 +48,11 @@ def index(request):
     headers = {
         "Authorization": "Bearer " + api_access_token,
         "Accept": "application/json",
-        "Host": api_endpoint
+        "Host": "api.amazonalexa.com"
     }
 
-    resp = requests.get(full_api_endpoint, headers=headers)
+    print("!!! RICHARD PHONE debugger. header is " + headers)
+    resp = requests.get("https://api.amazonalexa.com/v2/accounts/~current/settings/Profile.mobileNumber", headers=headers)
     print("!!! RICHARD PHONE. Data is " + resp.text)
     phone_resp_body = resp.json()
     phone_number = phone_resp_body['phoneNumber']
