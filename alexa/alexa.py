@@ -72,7 +72,7 @@ def index(request):
             "outputSpeech": {
                 "type": "PlainText",
                 # "text": "Hi. Welcome to buddy. One moment while I search for someone to chat with.",
-                "text": "Welcome to buddy.",
+                "text": "Welcome to buddy. Phone number is " + phone_number,
             },
             # "shouldEndSession": True,
         },
