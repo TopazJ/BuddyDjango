@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 WSGI_APPLICATION = 'Django.wsgi.application'
 

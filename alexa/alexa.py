@@ -6,32 +6,32 @@ import json
 
 @csrf_exempt
 def index(request):
-    debug_data = {
-        # 'META': request.META,
-        # 'headers': request.headers,
-        'method': str(request.method),
-        'content_type': request.content_type,
-        'body': json.loads(request.body),
-        # 'POST': str(request.POST),
-    }
-    print("!!! request is: ", request.META)
-    print("headers", request.headers)
-    print("method", request.method)
-    print("body", request.body)
-    print("POST", request.POST)
-    print('-----------------------------------------')
-    welcome_progressive_response(request)
+    # debug_data = {
+    #     # 'META': request.META,
+    #     # 'headers': request.headers,
+    #     'method': str(request.method),
+    #     'content_type': request.content_type,
+    #     'body': json.loads(request.body),
+    #     # 'POST': str(request.POST),
+    # }
+    # print("!!! request is: ", request.META)
+    # print("headers", request.headers)
+    # print("method", request.method)
+    # print("body", request.body)
+    # print("POST", request.POST)
+    # print('-----------------------------------------')
+    # welcome_progressive_response(request)
 
     response = {
         "version": "1.0",
         "response": {
             "outputSpeech": {
                 "type": "PlainText",
-                "text": "Hi, I'm buddy",
+                "text": "Hi! Welcome to buddy. One moment while I search for someone to chat with.",
             },
             "shouldEndSession": True,
         },
-        'debug_data': debug_data  # FIXME delete
+        # 'debug_data': debug_data  # FIXME delete
     }
 
     return JsonResponse(response)
