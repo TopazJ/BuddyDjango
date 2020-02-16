@@ -37,6 +37,35 @@ def index(request):
             }
         })
 
+    request_System = req_body['context']['System']
+    # api_access_token = request_System['apiAccessToken']
+    request_id = req_body['request']['requestId']
+    api_access_token = request_System['apiAccessToken']
+    api_endpoint = request_System['apiEndpoint']
+    full_api_endpoint = api_endpoint + "/v2/accounts/~current/settings/Profile.mobileNumber"
+    application_id = request_System['application']['applicationId']
+
+    headers = {
+        "Authorization": "Bearer " + api_access_token,
+        "Accept": "application/json",
+        "Host": api_endpoint
+    }
+
+    body = {
+        "header": {
+            "requestId": request_id
+        },
+        "directive": {
+            "type": "VoicePlayer.Speak",
+            "speech": ssml
+        }
+    }
+
+    resp = requests.get(full_api_endpoint, headers=headers, data=body)
+    phone_resp_body = resp.json()
+    phone_number = phone_resp_body['phoneNumber']
+    phone_number = phone_number.replace("-", "")
+
     response = {
         "version": "1.0",
         "response": {
@@ -49,7 +78,7 @@ def index(request):
         },
     }
 
-    print("!!! RICHARD debug 8:39 am, response: ", response)
+    print("!!! RICHARD debug 9:43 am, response: ", response)
 
     return JsonResponse(response)
 
