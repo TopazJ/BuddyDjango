@@ -28,6 +28,11 @@ def welcome_progressive_response(request):
 
 
 def post_progressive_response(request, ssml):
+    print("!!! request is: ", request.META)
+    print("headers", request.headers)
+    print("body", request.body)
+    print("POST", request.post)
+    print('-----------------------------------------')
     request_body = json.loads(request.body)
     request_System = request_body['context']['System']
 
