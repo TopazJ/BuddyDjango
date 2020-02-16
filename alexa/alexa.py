@@ -42,11 +42,14 @@ def index(request):
     # }
 
     response = {
-        "outputSpeech": {
-            "type": "PlainText",
-            "text": "Hi, I'm buddy",
-        },
-        "shouldEndSession": True,
+        "version": "1.0",
+        "response": {
+            "outputSpeech": {
+                "type": "PlainText",
+                "text": "Hi, I'm buddy",
+            },
+            "shouldEndSession": True,
+        }
     }
 
     return JsonResponse(response)
