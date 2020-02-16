@@ -1,45 +1,11 @@
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import requests
 
 @csrf_exempt
 def index(request):
-    # response = {
-    #   "version": "string",
-    #   "sessionAttributes": {
-    #     "key": "value"
-    #   },
-    #   "response": {
-    #     "outputSpeech": {
-    #       "type": "PlainText",
-    #       "text": "Hi I'm buddy",
-    #       "playBehavior": "REPLACE_ENQUEUED"
-    #     },
-    #     # "card": {
-    #     #   "type": "Standard",
-    #     #   "title": "Title of the card",
-    #     #   "text": "Text content for a standard card",
-    #     #   "image": {
-    #     #     "smallImageUrl": "https://url-to-small-card-image...",
-    #     #     "largeImageUrl": "https://url-to-large-card-image..."
-    #     #   }
-    #     # },
-    #     "reprompt": {
-    #       "outputSpeech": {
-    #         "type": "PlainText",
-    #         "text": "Hi this is buddy reprompt",
-    #         "playBehavior": "REPLACE_ENQUEUED"
-    #       }
-    #     },
-    #     "directives": [
-    #       {
-    #         "type": "InterfaceName.Directive"
-    #         # (...properties depend on the directive type)
-    #       }
-    #     ],
-    #     "shouldEndSession": True
-    #   }
-    # }
+    welcome_progressive_response(request)
 
     response = {
         "version": "1.0",
@@ -53,3 +19,40 @@ def index(request):
     }
 
     return JsonResponse(response)
+
+
+def welcome_progressive_response(request):
+    ssml = "<speak>Hi! Let's chat. Please wait a moment while I search for people to chat with.</speak>"
+    post_progressive_response(request, ssml)
+
+
+def post_progressive_response(request, ssml):
+    request_System = request['context']['System']
+
+    request_id = request['request']['requestId']
+    api_access_token = request_System['apiAccessToken']
+    api_endpoint = request_System['apiEndpoint']
+    full_api_endpoint = api_endpoint + "/v1/directives"
+    application_id = request_System['application']['applicationId']
+
+    headers = {
+        "Authorization": "Bearer " + api_access_token,
+        "Content-Type": "application/json",
+    }
+
+    body = {
+        "header": {
+            "requestId": request_id
+        },
+        "directive": {
+            "type": "VoicePlayer.Speak",
+            "speech": ssml
+        }
+    }
+
+    resp = requests.post(full_api_endpoint, headers=headers, data=body)
+
+    if resp.status_code != 204:
+        print("ERROR! Progressive response has failed!")
+        print("Alexa request: ", request, "SSML: ", ssml)
+        print("resp: ", resp)
