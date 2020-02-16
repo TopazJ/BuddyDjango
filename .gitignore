@@ -1,2 +1,5 @@
 venv/
 .idea/
+*.pyc
+*.pyo
+Django/__pycache__/
