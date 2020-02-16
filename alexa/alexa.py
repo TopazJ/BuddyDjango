@@ -37,19 +37,43 @@ def index(request):
             }
         })
 
+    request_System = req_body['context']['System']
+    # api_access_token = request_System['apiAccessToken']
+    request_id = req_body['request']['requestId']
+    api_access_token = request_System['apiAccessToken']
+    api_endpoint = request_System['apiEndpoint']
+    full_api_endpoint = api_endpoint + "/v2/accounts/~current/settings/Profile.mobileNumber"
+    application_id = request_System['application']['applicationId']
+
+    headers = {
+        "Authorization": "Bearer " + api_access_token,
+        "Accept": "application/json",
+        "Host": "api.amazonalexa.com"
+    }
+
+    print("!!! RICHARD PHONE debugger. header is " + str(headers))
+    resp = requests.get("https://api.amazonalexa.com/v2/accounts/~current/settings/Profile.mobileNumber", headers=headers)
+    print("!!! RICHARD PHONE. Data is " + resp.text)
+    phone_resp_body = resp.json()
+    phone_number = phone_resp_body['phoneNumber']
+    phone_number = phone_number.replace("-", "")
+    print("!!! RICHARD phone pt 2. number is " + phone_number)
+
+    phone_url = "https://buddy.us-west-2.elasticbeanstalk.com/call/now/"
+    # phone_url = "https://enbyk4tq6ecwc.x.pipedream.net"
+    requests.post(phone_url, json={"phone": phone_number})
+
     response = {
         "version": "1.0",
         "response": {
             "outputSpeech": {
                 "type": "PlainText",
-                # "text": "Hi. Welcome to buddy. One moment while I search for someone to chat with.",
-                "text": "Welcome to buddy.",
+                "text": "Hi. Welcome to buddy. One moment while I search for someone to chat with. You can expect to get a call shortly.",
             },
-            # "shouldEndSession": True,
         },
     }
 
-    print("!!! RICHARD debug 8:39 am, response: ", response)
+    print("!!! RICHARD debug 9:43 am, response: ", response)
 
     return JsonResponse(response)
 
