@@ -68,8 +68,7 @@ def index(request):
         "response": {
             "outputSpeech": {
                 "type": "PlainText",
-                "text": "Hi. Welcome to buddy. One moment while I search for someone to chat with.",
-                # "text": "Welcome to buddy. Your phone number is " + phone_number,
+                "text": "Hi. Welcome to buddy. One moment while I search for someone to chat with. You can expect to get a call shortly.",
             },
         },
     }
