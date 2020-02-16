@@ -2,9 +2,24 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import requests
+import json
 
 @csrf_exempt
 def index(request):
+    debug_data = {
+        # 'META': request.META,
+        # 'headers': request.headers,
+        'method': str(request.method),
+        'content_type': request.content_type,
+        'body': json.loads(request.body),
+        # 'POST': str(request.POST),
+    }
+    print("!!! request is: ", request.META)
+    print("headers", request.headers)
+    print("method", request.method)
+    print("body", request.body)
+    print("POST", request.POST)
+    print('-----------------------------------------')
     welcome_progressive_response(request)
 
     response = {
@@ -15,7 +30,8 @@ def index(request):
                 "text": "Hi, I'm buddy",
             },
             "shouldEndSession": True,
-        }
+        },
+        'debug_data': debug_data  # FIXME delete
     }
 
     return JsonResponse(response)
@@ -27,9 +43,10 @@ def welcome_progressive_response(request):
 
 
 def post_progressive_response(request, ssml):
-    request_System = request['context']['System']
+    request_body = json.loads(request.body)
+    request_System = request_body['context']['System']
 
-    request_id = request['request']['requestId']
+    request_id = request_body['request']['requestId']
     api_access_token = request_System['apiAccessToken']
     api_endpoint = request_System['apiEndpoint']
     full_api_endpoint = api_endpoint + "/v1/directives"
@@ -55,4 +72,5 @@ def post_progressive_response(request, ssml):
     if resp.status_code != 204:
         print("ERROR! Progressive response has failed!")
         print("Alexa request: ", request, "SSML: ", ssml)
-        print("resp: ", resp)
+    print("resp: ", resp.status_code, resp.text)
+
