@@ -42,9 +42,10 @@ def index(request):
         "response": {
             "outputSpeech": {
                 "type": "PlainText",
-                "text": "Hi. Welcome to buddy. One moment while I search for someone to chat with.",
+                # "text": "Hi. Welcome to buddy. One moment while I search for someone to chat with.",
+                "text": "Welcome to buddy.",
             },
-            "shouldEndSession": True,
+            # "shouldEndSession": True,
         },
     }
 
