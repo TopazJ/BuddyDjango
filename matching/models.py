@@ -8,7 +8,7 @@ from django.contrib.auth import models as auth_models
 class Client(models.Model):
     first_name = models.CharField(max_length=512)
     last_name = models.CharField(max_length=512, null=True)
-    phone = models.CharField(max_length=12, null=False)
+    phone = models.CharField(max_length=12, null=False, unique=True)
 
 
 class Volunteer(Client):
@@ -34,5 +34,5 @@ class Call(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     volunteer = models.ForeignKey(Volunteer, on_delete=models.CASCADE, null=False, related_name='vol')
     client = models.ForeignKey(Client, on_delete=models.CASCADE, null=False, related_name='cli')
-    rating = models.FloatField(default=-1)
+    rating = models.FloatField(default=0)
     counter = models.IntegerField(default=0)

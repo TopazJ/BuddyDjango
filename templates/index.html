@@ -69,7 +69,6 @@ body {
       </ul>
 
     </nav>
-
     <div class = "pacifico" style="text-align:center">
         <br/>
         <br/>
@@ -159,13 +158,14 @@ Feugiat vivamus at augue eget arcu dictum varius duis. Fringilla phasellus fauci
 
             <img src = "https://i.ya-webdesign.com/images/horizontal-clipart-transparent-background.png" class = "center"/>
             <div class="container">
-            <form action="#" method="post">
+            <form action="/volunteer/login/" method="post">
+                {% csrf_token %}
             <div class = "pacifico">
 
             <h2 id = "SignIn" > <br><br>Sign In</h2>
                 <br/>
             </div>
-            <label for="Email">Email:</label>
+            <label for="Email">Email: </label>
             <input type="email" class="form-control" name="Email" id ="Email" required placeholder="Email"><br>
             <label for="Password">Password: </label>
             <input type="password" class="form-control" name="password" id="Password" required placeholder="Password"><br>

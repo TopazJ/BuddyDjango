@@ -18,6 +18,8 @@ from matching import views
 
 urlpatterns = [
     path('', views.main_page),
+    path('login/', views.login_volunteer),
     path('signup/', views.signup_volunteer),
     path('create/', views.create_volunteer),
+    path('modify/', views.volunteer_modify),
 ]
