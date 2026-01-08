@@ -8,4 +8,4 @@ mysqlclient==1.4.6
 pytz==2019.3
 requests==2.32.4
 sqlparse==0.5.0
-urllib3==2.6.0
+urllib3==2.6.3
